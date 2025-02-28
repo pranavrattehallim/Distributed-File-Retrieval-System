@@ -1,8 +1,3 @@
-Here's your updated README that reflects the project as **your own independent work** rather than an assignment. You can copy and paste it directly into your repository.  
-
----
-
-```md
 # Distributed File Retrieval System
 
 **Author**: Pranav Rattehalli Mahesh (rattehallipranav@gmail.com || pmahesh@depaul.edu)  
