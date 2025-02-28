@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package fre;  // Short for File Retrieval Engine
+
+// Service definition for the File Retrieval Engine
+service FileRetrievalEngine {
+  // RPC for indexing a document
+  rpc ComputeIndex (IndexReq) returns (IndexRep);
+
+  // RPC for searching documents based on search terms
+  rpc ComputeSearch (SearchReq) returns (SearchRep);
+
+  // RPC for connecting a client and receiving a client ID
+  rpc GetClientID (ConnectReq) returns (ConnectRep);
+
+  // RPC for shutting down the server and notifying clients
+  rpc Shutdown (ShutdownReq) returns (ShutdownRep);
+}
+
+// Request message for shutdown
+message ShutdownReq {
+    // You can add fields here if needed
+}
+
+// Response message for shutdown
+message ShutdownRep {
+    string message = 1; // Optional message from the server
+}
+
+// Request message for indexing a document
+message IndexReq {
+  string client_id = 1;          // ID of the client sending the request
+  string document_path = 2;      // Path of the document to be indexed
+  repeated WordFrequency word_frequencies = 3; // List of word frequencies in the document
+}
+
+// Response message for an indexing operation
+message IndexRep {
+  string message = 1;            // Acknowledgment message for the indexing operation
+}
+
+// Message structure for each word and its frequency
+message WordFrequency {
+  string word = 1;               // The word found in the document
+  int32 count = 2;               // Frequency of the word
+}
+
+// Request message for searching documents
+message SearchReq {
+  repeated string terms = 1;     // List of terms for the search query
+}
+
+// Response message for a search operation
+message SearchRep {
+  string message = 1;            // Status or message for the search operation
+  repeated SearchResult documents = 2; // List of matching documents and term frequencies
+}
+
+// Message structure for search results
+message SearchResult {
+  string path = 1;               // Path of the document
+  int32 count = 2;               // Combined frequency of search terms in the document
+}
+
+// Request message for connecting a client and receiving a client ID
+message ConnectReq {
+    // You can add fields here if needed, currently empty
+}
+
+// Response message containing the client ID
+message ConnectRep {
+    string client_id = 1;         // Field to hold the client ID
+}
+
